@@ -1,8 +1,18 @@
+import { useState } from 'react';
 import './App.css';
 
-function WebTitle(){
+function WebTitle(props){
+  const [title, setTitle] = useState(props.title)
+
+  const changeTitle = () =>{
+    setTitle("Netflix")
+  }
   return (
-    <h1>Netflix Clone</h1>
+    <>
+    <h1>{title}</h1>
+    <button onClick={changeTitle}>Ganti Judul</button>
+    </>
+    
   )
 }
 
@@ -15,6 +25,7 @@ function Articles ({index, title, desc}){
   )
 }
 function App(){
+  const [data, setData] = useState("Dhea Syifa")
   const article = [
     {
       title :"Artikel Pertama",
@@ -53,15 +64,19 @@ function App(){
       desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
     },
   ]
+
+  const changeState = () =>{
+    setData("sudah diubah")
+  }
   return(
      <main>
-      <WebTitle/>
+      <WebTitle title="Netflix Clone"/>
       {article?.map ((item, index)=>(
         <Articles index={index} title={item.title} desc={item.desc}/>
 
       ))
-
       }
+
      </main>
   )
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function WebTitle(props){
@@ -16,9 +16,9 @@ function WebTitle(props){
   )
 }
 
-function Articles ({index, title, desc}){
+function Articles ({ title, desc}){
   return ( 
-    <article key={index}>
+    <article >
         <h3>{title}</h3>
         <p>{desc}</p>
       </article>
@@ -26,7 +26,14 @@ function Articles ({index, title, desc}){
 }
 function App(){
   const [data, setData] = useState("Dhea Syifa")
-  const article = [
+  const [article, setArticle] = useState("")
+  const [counterClick, setCounterClick] = useState(1)
+
+  useEffect(()=>{
+    fetch("https://dummyjson.com/posts/" + counterClick).then(data=> data.json())
+    .then(res => setArticle(res))
+  },[counterClick])
+  const articles = [
     {
       title :"Artikel Pertama",
       desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
@@ -68,15 +75,23 @@ function App(){
   const changeState = () =>{
     setData("sudah diubah")
   }
+  const nextArticle = () =>{
+    setCounterClick(counterClick + 1)
+  }
+  const prevArticle = () =>{
+    setCounterClick(counterClick - 1)
+  }
   return(
      <main>
       <WebTitle title="Netflix Clone"/>
-      {article?.map ((item, index)=>(
-        <Articles index={index} title={item.title} desc={item.desc}/>
+      {/* {article  ? article.posts?.map ((item, index)=>( */}
+        <Articles  title={article.title} desc={article.body}/>
 
-      ))
-      }
-
+      {/* )) : <p>Loading...</p>
+      } */}
+      <button onClick={prevArticle}>Previous Article</button>
+      {counterClick}
+      <button onClick={nextArticle}>Next Article</button>
      </main>
   )
 

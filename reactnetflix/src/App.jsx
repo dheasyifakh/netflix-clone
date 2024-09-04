@@ -1,77 +1,27 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { getArticle } from './utils/getArticle';
+import WebTitle from './components/WebTitle';
+import Articles from './components/Articles';
+import LimitArticle from './components/LimitArticle';
+import Layout from './components/Layout';
+import CustomInput from './components/CustomInput';
 
-function WebTitle(props){
-  const [title, setTitle] = useState(props.title)
-
-  const changeTitle = () =>{
-    setTitle("Netflix")
-  }
-  return (
-    <>
-    <h1>{title}</h1>
-    <button onClick={changeTitle}>Ganti Judul</button>
-    </>
-    
-  )
-}
-
-function Articles ({ title, desc}){
-  return ( 
-    <article >
-        <h3>{title}</h3>
-        <p>{desc}</p>
-      </article>
-  )
-}
 function App(){
   const [data, setData] = useState("Dhea Syifa")
   const [article, setArticle] = useState("")
   const [counterClick, setCounterClick] = useState(1)
+  const [text, setText] = useState('')
 
+  const handleChange = (e) =>{
+    setText(e.target.value)
+  }
   useEffect(()=>{
-    fetch("https://dummyjson.com/posts/" + counterClick).then(data=> data.json())
+    getArticle(counterClick)
     .then(res => setArticle(res))
   },[counterClick])
-  const articles = [
-    {
-      title :"Artikel Pertama",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Kedua",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Ketiga",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Keempat",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Kelima",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Keenam",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Ketujuh",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Kedelapan",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-    {
-      title :"Artikel Kesembilan",
-      desc : "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos eum ad aspernatur, nisi inventore consequuntur id in officiis nostrum obcaecati quod omnis sequi blanditiis. Expedita nobis maiores molestias incidunt alias!"
-    },
-  ]
-
+  
+  
   const changeState = () =>{
     setData("sudah diubah")
   }
@@ -81,18 +31,25 @@ function App(){
   const prevArticle = () =>{
     setCounterClick(counterClick - 1)
   }
+  // if(counterClick > 4)
+  //   return <LimitArticle/>
+  
   return(
-     <main>
-      <WebTitle title="Netflix Clone"/>
-      {/* {article  ? article.posts?.map ((item, index)=>( */}
-        <Articles  title={article.title} desc={article.body}/>
-
-      {/* )) : <p>Loading...</p>
-      } */}
-      <button onClick={prevArticle}>Previous Article</button>
+     <Layout>
+      {/* <WebTitle title="Netflix Clone"/> */}
+      <Articles  title={article.title} desc={article.body}/>
+      {/* <CustomInput label="First Input" handleChange={handleChange} text={text}/>
+      <CustomInput label="Second Input" handleChange={handleChange} text={text}/> */}
+      {/* {counterClick == 2 && <p>Click 2x</p>}
+      {counterClick > 4 ? <LimitArticle/> :
+        <>
+        <button onClick={prevArticle}>Previous Article</button>
       {counterClick}
       <button onClick={nextArticle}>Next Article</button>
-     </main>
+        </>
+      } */}
+      
+      </Layout>
   )
 
 }

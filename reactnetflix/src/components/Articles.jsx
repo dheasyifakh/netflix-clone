@@ -5,7 +5,10 @@ const Articles = ({ title, desc}) => {
         alert('artikel diklik')
     }
     const saveArticle = (event) =>{
-        event.stopPropagation()
+        //untuk tidak kereload saat onclick
+        event.preventDefault();
+        //agar tidak show alert ahowarticle
+        event.stopPropagation();
         alert('artikel disimpan')
     }
     return ( 

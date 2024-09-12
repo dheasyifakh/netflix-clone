@@ -20,8 +20,8 @@ function Home(){
   
   return(
     <Layout>
-      <h1>{language == 'en' ? "Watch Netflix Free!": "Tonton Netflix Gratis!"}</h1>
-      <p>Message from API: {movies?.message}</p>
+      <h1 className='text-center p-12'>{language == 'en' ? "Watch Netflix Free!": "Tonton Netflix Gratis!"}</h1>
+      <p className='bg-black text-white p-4 text-center'>Message from API: {movies?.message}</p>
     </Layout>
   )
 

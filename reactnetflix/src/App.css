@@ -16,3 +16,10 @@ article{
     padding: 1rem;
     cursor: pointer;
 }
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}

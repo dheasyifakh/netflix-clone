@@ -1,14 +1,14 @@
+import { useAtom } from 'jotai';
 import '../App.css';
-import Articles from '../components/Articles';
 import Layout from '../components/Layout';
-import useArticle from '../hooks/useArticle';
+import { languageAtom } from '../jotai/atoms';
 
 function Home(){
-  const {article} = useArticle()
+  const[language, ] = useAtom(languageAtom)
   
   return(
     <Layout>
-      <Articles  title={article.title} desc={article.body}/>
+      <h1>{language == 'en' ? "Watch Netflix Free!": "Tonton Netflix Gratis!"}</h1>
     </Layout>
   )
 
